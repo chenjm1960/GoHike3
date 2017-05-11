@@ -9,24 +9,21 @@
 import UIKit
 import CoreLocation
 import MapKit
+import CorePlot
+import Alamofire
+import SwiftDate
+
 
 class ViewController: UIViewController,CLLocationManagerDelegate {
     
     var manager = CLLocationManager()
-    var totalDistanceMeters:Double = 0.0
     var totalDistanceMeters2:Double = 0.0
     var preTimeInterval = 0.0
     var startLocation: CLLocation!
     var lastLocation: CLLocation!
     var updateCount = 0
     
-    @IBOutlet weak var speedLabel: UILabel!
-    
-    @IBOutlet weak var totalDist: UILabel!
-    
     @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var totalDistMiles: UILabel!
     
     @IBOutlet weak var totalDistMiles2: UILabel!
     
@@ -35,7 +32,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
