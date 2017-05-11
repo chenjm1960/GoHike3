@@ -54,7 +54,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations[0]
+        //let location = locations[0]
+        
+        /*
+        // 1. dist method using (speed * time)
+        
+        if location.speed >= 0.0 {
+            
+            totalDistanceMeters += Double(location.speed)
+            
+        }
+        self.speedLabel.text = String(location.speed)
+        self.totalDist.text = String(totalDistanceMeters)
+        self.totalDistMiles.text = String(format: "%.4f",(totalDistanceMeters * 0.0006214))
+        */
         
         // set map to center and focus on your location
         // use if loop to update map just 5 times
@@ -64,16 +77,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.setRegion(region, animated: false)
             updateCount += 1
         }
-        
-        
-        // 1. dist method using (speed X time)
-        
-        if location.speed >= 0.0 {
-            
-            totalDistanceMeters += Double(location.speed)
-            
-        }
-        
         
         // 2. dist method using distance between two locations
         if startLocation == nil {
@@ -93,15 +96,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         }
         //////////
         
-        self.speedLabel.text = String(location.speed)
-        self.totalDist.text = String(totalDistanceMeters)
-        self.totalDistMiles.text = String(totalDistanceMeters * 0.0006214)
-        
-        self.totalDist2.text = String(totalDistanceMeters2)
-        self.totalDistMiles2.text = String(totalDistanceMeters2 * 0.0006214)
         
         
-        
+        self.totalDist2.text = String(format: "%.4f", totalDistanceMeters2)
+        self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
         
     }
     
