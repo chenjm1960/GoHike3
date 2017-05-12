@@ -145,6 +145,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = QM9U5GRFNF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -358,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F5AE0D73037E7C730E5E693A /* Pods-GoHike.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QM9U5GRFNF;
@@ -373,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5C00A2C2AAF0E28C35117027 /* Pods-GoHike.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = QM9U5GRFNF;

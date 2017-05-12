@@ -29,6 +29,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var totalDist2: UILabel!
     
+    @IBAction func changeMapType(_ sender: AnyObject) {
+        if mapView.mapType == MKMapType.standard {
+            mapView.mapType = MKMapType.satellite
+            
+        } else {
+            mapView.mapType = MKMapType.standard
+        }
+    } 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -40,6 +49,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         manager.startUpdatingLocation()
         
         mapView.showsUserLocation = true
+        mapView.showsCompass = true
+        mapView.showsScale = true
         
     }
     
@@ -98,6 +109,5 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
         
     }
-    
 }
 
