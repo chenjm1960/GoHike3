@@ -36,8 +36,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         } else {
             mapView.mapType = MKMapType.standard
         }
-    } 
+    }
     
+    @IBAction func flyoverMap(_ sender: UIButton) {
+        
+        let camera = MKMapCamera()
+        camera.centerCoordinate = mapView.centerCoordinate
+        camera.pitch = 80.0
+        camera.altitude = 100.0
+        camera.heading = 45.0
+        mapView.showsBuildings = true
+        mapView.setCamera(camera, animated: true)
+        
+    }
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
