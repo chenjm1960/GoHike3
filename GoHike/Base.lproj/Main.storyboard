@@ -57,9 +57,8 @@
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIO-Pv-13l">
-                                <rect key="frame" x="298" y="568" width="59" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIO-Pv-13l">
+                                <rect key="frame" x="300" y="568" width="57" height="23"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="9"/>
                                 <state key="normal" title="SwitchView">
@@ -69,9 +68,8 @@
                                     <action selector="changeMapType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AsW-GK-Vyk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkq-MD-qYB">
-                                <rect key="frame" x="244" y="568" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkq-MD-qYB">
+                                <rect key="frame" x="252" y="568" width="40" height="24"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="10"/>
                                 <state key="normal" title="3Dview">
@@ -81,13 +79,30 @@
                                     <action selector="flyoverMap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yss-Y6-avr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljp-cU-LQC">
+                                <rect key="frame" x="252" y="40" width="44" height="28"/>
+                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <state key="normal" title="Center">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="centerLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cyd-bH-bYe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ljp-cU-LQC" secondAttribute="trailing" constant="79" id="BGm-Ud-l8s"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="pkq-MD-qYB" secondAttribute="bottom" constant="75" id="FL3-se-iH2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bIO-Pv-13l" secondAttribute="trailing" constant="2" id="SnX-hG-i9c"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TC1-0V-zIe" secondAttribute="trailing" id="UMr-Cr-3Td"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TC1-0V-zIe" secondAttribute="bottom" constant="63" id="Y8R-DE-2qY"/>
                             <constraint firstItem="TC1-0V-zIe" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aZ2-3w-FQB"/>
                             <constraint firstItem="TC1-0V-zIe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="t1d-yG-Qok"/>
+                            <constraint firstItem="bIO-Pv-13l" firstAttribute="top" secondItem="pkq-MD-qYB" secondAttribute="top" id="wBM-XG-cjE"/>
+                            <constraint firstItem="bIO-Pv-13l" firstAttribute="leading" secondItem="pkq-MD-qYB" secondAttribute="trailing" constant="8" symbolic="YES" id="yHr-9J-5xb"/>
+                            <constraint firstItem="ljp-cU-LQC" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="zG5-Fc-ttH"/>
                         </constraints>
                     </view>
                     <connections>

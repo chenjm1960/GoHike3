@@ -46,9 +46,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         camera.altitude = 200.0
         camera.heading = 45.0
         mapView.showsBuildings = true
-        mapView.setCamera(camera, animated: true)
+        mapView.setCamera(camera, animated: false)
         
     }
+    
+    @IBAction func centerLocation(_ sender: UIButton) {
+        if let coord = manager.location?.coordinate {
+            let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
        
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +103,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
             mapView.setRegion(region, animated: false)
             updateCount += 1
+        } else {
+            manager.startUpdatingLocation()
         }
         
         // 2. dist method using distance between two locations
