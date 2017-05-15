@@ -36,12 +36,46 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var totalDist2: UILabel!
     
     @IBAction func changeMapType(_ sender: UIButton) {
-        if mapView.mapType == MKMapType.standard {
+        centerViews.mapViewType = "standard"
+        let title = sender.titleLabel?.text
+        switch title!{
+        case "Satellite":
+            if let coord = manager.location?.coordinate {
+                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+                mapView.setRegion(region, animated: true)
+                mapView.mapType = .satellite
+                sender.setTitle("Hybrid", for: [])
+                
+            }
+        case "Hybrid":
+            if let coord = manager.location?.coordinate {
+                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+                mapView.setRegion(region, animated: true)
+                mapView.mapType = .hybrid
+                sender.setTitle("Standard", for: [])
+            }
+        case "Standard":
+            if let coord = manager.location?.coordinate {
+                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+                mapView.setRegion(region, animated: true)
+                mapView.mapType = .standard
+                sender.setTitle("Satellite", for: [])
+            }
+        default:
+            mapView.mapType = .standard
+            sender.setTitle("Sat Fly", for: [])
+        }
+        
+        
+        
+        
+        
+        /*if mapView.mapType == MKMapType.standard {
             mapView.mapType = MKMapType.satelliteFlyover
             
         } else {
             mapView.mapType = MKMapType.standard
-        }
+        }*/
     }
     
     @IBAction func flyoverMap(_ sender: UIButton) {
@@ -127,7 +161,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.setRegion(region, animated: false)
             updateCount += 1
         } else {
-            manager.startUpdatingLocation()
+            manager.stopUpdatingLocation()
         }
         
         // 2. dist method using distance between two locations
