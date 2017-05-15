@@ -29,9 +29,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var totalDist2: UILabel!
     
-    @IBAction func changeMapType(_ sender: AnyObject) {
+    @IBAction func changeMapType(_ sender: UIButton) {
         if mapView.mapType == MKMapType.standard {
-            mapView.mapType = MKMapType.satellite
+            mapView.mapType = MKMapType.satelliteFlyover
             
         } else {
             mapView.mapType = MKMapType.standard
@@ -43,7 +43,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let camera = MKMapCamera()
         camera.centerCoordinate = mapView.centerCoordinate
         camera.pitch = 80.0
-        camera.altitude = 100.0
+        camera.altitude = 200.0
         camera.heading = 45.0
         mapView.showsBuildings = true
         mapView.setCamera(camera, animated: true)
