@@ -14,7 +14,13 @@ import Alamofire
 import SwiftDate
 
 
+
 class ViewController: UIViewController,CLLocationManagerDelegate {
+    struct CenterViews {
+        var mapViewType = "standard"
+    }
+    
+    var centerViews = CenterViews()
     
     var manager = CLLocationManager()
     var totalDistanceMeters2:Double = 0.0
@@ -47,13 +53,30 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         camera.heading = 45.0
         mapView.showsBuildings = true
         mapView.setCamera(camera, animated: false)
-        
+        centerViews.mapViewType = "flyover"
     }
     
     @IBAction func centerLocation(_ sender: UIButton) {
         if let coord = manager.location?.coordinate {
-            let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
-            mapView.setRegion(region, animated: true)
+            //
+            
+            switch centerViews.mapViewType {
+                
+                case "standard":
+                    let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+                    mapView.setRegion(region, animated: true)
+                
+                case "flyover":
+                    let camera = MKMapCamera()
+                    camera.centerCoordinate = coord
+                    camera.pitch = 80.0
+                    camera.altitude = 200.0
+                    camera.heading = 45.0
+                    mapView.showsBuildings = true
+                    mapView.setCamera(camera, animated: false)
+            default:
+                print("No selection")
+            }
         }
     }
     
