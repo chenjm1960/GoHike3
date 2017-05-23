@@ -17,6 +17,7 @@ import SwiftDate
 
 class ViewController: UIViewController,CLLocationManagerDelegate {
     struct CenterViews {
+        //use in switch functions to control viewtypes
         var mapViewType = "standard"
     }
     
@@ -36,46 +37,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var totalDist2: UILabel!
     
     @IBAction func changeMapType(_ sender: UIButton) {
+        
         centerViews.mapViewType = "standard"
         let title = sender.titleLabel?.text
+        
         switch title!{
         case "Satellite":
-            if let coord = manager.location?.coordinate {
-                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
-                mapView.setRegion(region, animated: true)
-                mapView.mapType = .satellite
-                sender.setTitle("Hybrid", for: [])
-                
-            }
+            mapView.mapType = .satellite
+            sender.setTitle("Hybrid", for: [])
         case "Hybrid":
-            if let coord = manager.location?.coordinate {
-                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
-                mapView.setRegion(region, animated: true)
-                mapView.mapType = .hybrid
-                sender.setTitle("Standard", for: [])
-            }
+            mapView.mapType = .hybrid
+            sender.setTitle("Standard", for: [])
         case "Standard":
-            if let coord = manager.location?.coordinate {
-                let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
-                mapView.setRegion(region, animated: true)
-                mapView.mapType = .standard
-                sender.setTitle("Satellite", for: [])
-            }
+            mapView.mapType = .standard
+            sender.setTitle("Satellite", for: [])
         default:
             mapView.mapType = .standard
             sender.setTitle("Sat Fly", for: [])
         }
-        
-        
-        
-        
-        
-        /*if mapView.mapType == MKMapType.standard {
-            mapView.mapType = MKMapType.satelliteFlyover
-            
-        } else {
-            mapView.mapType = MKMapType.standard
-        }*/
     }
     
     @IBAction func flyoverMap(_ sender: UIButton) {
@@ -83,14 +62,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let camera = MKMapCamera()
         camera.centerCoordinate = mapView.centerCoordinate
         camera.pitch = 80.0
-        camera.altitude = 200.0
+        camera.altitude = 150.0
         camera.heading = 45.0
         mapView.showsBuildings = true
-        mapView.setCamera(camera, animated: false)
+        mapView.setCamera(camera, animated: true)
         centerViews.mapViewType = "flyover"
     }
     
     @IBAction func centerLocation(_ sender: UIButton) {
+        
         if let coord = manager.location?.coordinate {
             //
             
@@ -104,7 +84,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                     let camera = MKMapCamera()
                     camera.centerCoordinate = coord
                     camera.pitch = 80.0
-                    camera.altitude = 200.0
+                    camera.altitude = 150.0
                     camera.heading = 45.0
                     mapView.showsBuildings = true
                     mapView.setCamera(camera, animated: false)
@@ -128,6 +108,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         mapView.showsUserLocation = true
         mapView.showsCompass = true
         mapView.showsScale = true
+        mapView.showsBuildings = true
         
     }
     
@@ -161,7 +142,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.setRegion(region, animated: false)
             updateCount += 1
         } else {
-            manager.stopUpdatingLocation()
+            manager.startUpdatingLocation()
         }
         
         // 2. dist method using distance between two locations
