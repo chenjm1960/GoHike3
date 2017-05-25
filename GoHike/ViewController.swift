@@ -31,7 +31,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var updateCount = 0
     var runSpeed: Double = 0.000
     
-    // using CorePlot
+    // using CorePlot for speedBar Display:
     @IBOutlet weak var speedBarView: CPTGraphHostingView!
     var propAnnotation: CPTPlotSpaceAnnotation?
     // plot* defines a bar for displaying speed
@@ -134,8 +134,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // 1. dist method using (speed * time)
         
         if location.speed >= 0.0 {
+            print("speed (miles/hr)= \(location.speed*(2.236))")
             
-            runSpeed = location.speed
+            runSpeed = location.speed*(2.236) // converted to miles/hour
             initPlot()
             
         }
@@ -219,19 +220,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         graph.titlePlotAreaFrameAnchor = .top
         graph.titleDisplacement = CGPoint(x: 0.0, y: 16.0)
         
-        //Below is to reset the yAxis tick scale for the yAxis data(MW)
-        // in the 100 - 1000 grams range
+        //Below is to reset the yAxis tick scale for the yAxis data(speed)
+        // miles/hour units range
         let axisSet = graph.axisSet as! CPTXYAxisSet
         let y = axisSet.yAxis
-        y?.majorIntervalLength = 2
+        y?.majorIntervalLength = 6
         
         // 4 - Set up plot space
         // Number of data sets
         let xMin = 0.0
         let xMax = Double(1.0)
-        // MW range limit
+        // miles/hr range limit
         let yMin = 0.0
-        let yMax = 10.0
+        let yMax = 30.0
         
         guard let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return }
         plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin))
@@ -299,12 +300,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             xAxis.axisLabels = axisLabels
         }
     
-        // 4 - Configure the y-axis for MW and PSA graph:
+        // 4 - Configure the y-axis for speed graph:
         if let yAxis = axisSet.yAxis {
             yAxis.labelingPolicy = .fixedInterval
             yAxis.labelOffset = 0.0
-            yAxis.minorTicksPerInterval = 2
-            yAxis.majorTickLength = 5
+            yAxis.minorTicksPerInterval = 3
+            yAxis.majorTickLength = 6
             let majorTickLineStyle = CPTMutableLineStyle()
             majorTickLineStyle.lineColor = CPTColor.black().withAlphaComponent(0.4)
             yAxis.majorTickLineStyle = majorTickLineStyle
