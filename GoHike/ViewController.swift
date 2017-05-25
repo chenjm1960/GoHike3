@@ -36,8 +36,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var propAnnotation: CPTPlotSpaceAnnotation?
     // plot* defines a bar for displaying speed
     var plot1: CPTBarPlot!
-    let BarWidth = 0.25
-    let BarInitialX = 0.25
+    let BarWidth = 0.5
+    let BarInitialX = 0.5
     ///////////////////////////
     @IBOutlet weak var mapView: MKMapView!
     
@@ -202,10 +202,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // 2 - Configure the graph
         graph.apply(CPTTheme(named: CPTThemeName.plainWhiteTheme))
         graph.fill = CPTFill(color: CPTColor.clear())
-        graph.paddingBottom = 5.0
-        graph.paddingLeft = 5.0
+        graph.paddingBottom = 2.0
+        graph.paddingLeft = 0.0
         graph.paddingTop = 0.0
-        graph.paddingRight = 2.0
+        graph.paddingRight = 0.0
         
         // 3 - Set up styles
         let titleStyle = CPTMutableTextStyle()
@@ -303,7 +303,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // 4 - Configure the y-axis for speed graph:
         if let yAxis = axisSet.yAxis {
             yAxis.labelingPolicy = .fixedInterval
-            yAxis.labelOffset = 0.0
+            yAxis.labelOffset = -5.0
             yAxis.minorTicksPerInterval = 3
             yAxis.majorTickLength = 6
             let majorTickLineStyle = CPTMutableLineStyle()
