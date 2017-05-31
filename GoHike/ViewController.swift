@@ -14,7 +14,6 @@ import Alamofire
 import SwiftDate
 
 
-
 class ViewController: UIViewController,CLLocationManagerDelegate {
     struct CenterViews {
         //use in switch functions to control viewtypes
@@ -32,6 +31,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var runSpeed: Double = 0.000
     
     // using CorePlot for speedBar Display:
+    
+    @IBOutlet weak var progressView: UIProgressView! // alternative view for speedbar
+    
     @IBOutlet weak var speedBarView: CPTGraphHostingView!
     var propAnnotation: CPTPlotSpaceAnnotation?
     // plot* defines a bar for displaying speed
@@ -42,8 +44,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var totalDistMiles2: UILabel!
-    
-    @IBOutlet weak var totalDist2: UILabel!
     
     @IBAction func changeMapType(_ sender: UIButton) {
         
@@ -106,7 +106,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
        
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Do any additional setup after loading the view, typically from a nib
         
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -119,6 +119,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         mapView.showsScale = true
         mapView.showsBuildings = true
         
+        // Makes the progressView Bar thicker
+        self.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
     }
     
     override func didReceiveMemoryWarning() {
@@ -137,6 +139,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             print("speed (miles/hr)= \(location.speed*(2.236))")
             
             runSpeed = location.speed*(2.236) // converted to miles/hour
+            // Using iOS Progress View Bar to plot speed instead of CorePlot
+            progressView.setProgress(Float(runSpeed/10), animated: true)
+            // initPlot initiates the CorePlot Bar Chart
             initPlot()
             
         }
@@ -173,7 +178,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         
         
         
-        self.totalDist2.text = String(format: "%.4f", totalDistanceMeters2)
         self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
         
     }
@@ -232,7 +236,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let xMax = Double(1.0)
         // miles/hr range limit
         let yMin = 0.0
-        let yMax = 30.0
+        let yMax = 10.0
         
         guard let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return }
         plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin))
