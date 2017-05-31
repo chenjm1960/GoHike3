@@ -140,7 +140,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             
             runSpeed = location.speed*(2.236) // converted to miles/hour
             // Using iOS Progress View Bar to plot speed instead of CorePlot
-            progressView.setProgress(Float(runSpeed/10), animated: true)
+            progressView.setProgress(Float(runSpeed/12), animated: true)
             // initPlot initiates the CorePlot Bar Chart
             initPlot()
             
@@ -236,7 +236,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let xMax = Double(1.0)
         // miles/hr range limit
         let yMin = 0.0
-        let yMax = 10.0
+        let yMax = 12.0
         
         guard let plotSpace = graph.defaultPlotSpace as? CPTXYPlotSpace else { return }
         plotSpace.xRange = CPTPlotRange(locationDecimal: CPTDecimalFromDouble(xMin), lengthDecimal: CPTDecimalFromDouble(xMax - xMin))
