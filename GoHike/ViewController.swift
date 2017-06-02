@@ -30,14 +30,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     // using CorePlot for speedBar Display:
     
     @IBOutlet weak var progressView: UIProgressView! // alternative view for speedbar
-    
+    @IBOutlet weak var progressViewDist: UIProgressView!
     @IBOutlet weak var mapView: MKMapView!
-    
-    @IBOutlet weak var totalDistMiles2: UILabel!
     
     @IBAction func changeMapType(_ sender: UIButton) {
         
         //mapViewType = "Standard"
+        
         let title = sender.titleLabel?.text
         
         switch title!{
@@ -139,6 +138,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         
         // Makes the progressView Bar thicker
         self.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
+        self.progressViewDist.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
     }
     
     override func didReceiveMemoryWarning() {
@@ -193,7 +193,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             startLocation = lastLocation
         }
         
-        self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
+        //self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
+        let progressBarPercent = ((totalDistanceMeters2 * 0.0006214)/12)
+        progressViewDist.setProgress(Float(progressBarPercent), animated: true)
         
     }
     
