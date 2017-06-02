@@ -13,8 +13,12 @@ import MapKit
 
 class ViewController: UIViewController,CLLocationManagerDelegate {
     
-    var mapViewType = "Standard"
+    // constants below are the camera settings
+    let distance: CLLocationDistance = 550
+    let pitch: CGFloat = 60
+    let heading = 0.0
     
+    var mapViewType = "Standard"
     var manager = CLLocationManager()
     var totalDistanceMeters2:Double = 0.0
     var preTimeInterval = 0.0
@@ -54,28 +58,23 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     // setting for the 3D button
     @IBAction func flyoverMap(_ sender: UIButton) {
         
-        let distance: CLLocationDistance = 450
-        let pitch: CGFloat = 60
-        let heading = 90.0
-        
         let title = sender.titleLabel?.text
         //mapView.mapType = .standard
         switch title!{
         case "Satellite3D":
             let camera = MKMapCamera(lookingAtCenter: mapView.centerCoordinate, fromDistance: distance, pitch: pitch, heading: heading)
-            //camera.heading = 90.0
+            mapView.mapType = .satelliteFlyover
             mapView.showsBuildings = true
             mapView.setCamera(camera, animated: true)
             mapViewType = "SatelliteFlyover"
-            mapView.mapType = .satelliteFlyover
             sender.setTitle("Hybrid3D", for: [])
             break
         case "Hybrid3D":
             let camera = MKMapCamera(lookingAtCenter: mapView.centerCoordinate, fromDistance: distance, pitch: pitch, heading: heading)
-            mapView.showsBuildings = true
-            mapView.setCamera(camera, animated: true)
-            mapViewType = "HybridFlyover"
             mapView.mapType = .hybridFlyover
+            mapView.showsBuildings = true
+            mapViewType = "HybridFlyover"
+            mapView.setCamera(camera, animated: true)
             sender.setTitle("Standard3D", for: [])
             break
         case "Standard3D":
@@ -95,10 +94,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     @IBAction func centerLocation(_ sender: UIButton) {
-        
-        let distance: CLLocationDistance = 450
-        let pitch: CGFloat = 60
-        let heading = 90.0
         
         if let coord = manager.location?.coordinate {
             //
