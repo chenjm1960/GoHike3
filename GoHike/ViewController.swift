@@ -14,9 +14,9 @@ import MapKit
 class ViewController: UIViewController,CLLocationManagerDelegate {
     
     // constants below are the camera settings
-    let distance: CLLocationDistance = 550
-    let pitch: CGFloat = 60
-    let heading = 0.0
+    let distance: CLLocationDistance = 650
+    let pitch: CGFloat = 30
+    let heading = 90.0
     
     var mapViewType = "Standard"
     var manager = CLLocationManager()
@@ -135,6 +135,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         mapView.showsCompass = true
         mapView.showsScale = true
         mapView.showsBuildings = true
+        mapView.showsPointsOfInterest = true
         
         // Makes the progressView Bar thicker
         self.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
@@ -160,7 +161,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             
             // Using iOS Progress View Bar to plot speed instead of CorePlot
             // max speed scale = 12 miles/hr
-            progressView.setProgress(Float(runSpeed/12), animated: true)
+            progressView.setProgress(Float(runSpeed/10), animated: true)
             
         }
         
@@ -183,19 +184,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         } else {
             let lastLocation = locations.last!
             let distance = startLocation.distance(from: lastLocation)
-            
+            var progressBarPercent = 0.0
             if distance > 0.0 {
                 
                 totalDistanceMeters2 += distance
+                //self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
+                progressBarPercent = ((totalDistanceMeters2 * 0.0006214)/10)
+                progressViewDist.setProgress(Float(progressBarPercent), animated: true)
                 
             }
             
             startLocation = lastLocation
         }
-        
-        //self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
-        let progressBarPercent = ((totalDistanceMeters2 * 0.0006214)/12)
-        progressViewDist.setProgress(Float(progressBarPercent), animated: true)
         
     }
     
