@@ -13,12 +13,12 @@
 		1F83486A1EC3C9D100891D57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F8348691EC3C9D100891D57 /* Assets.xcassets */; };
 		1F83486D1EC3C9D100891D57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F83486B1EC3C9D100891D57 /* LaunchScreen.storyboard */; };
 		1F8348761EC3C9F100891D57 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8348751EC3C9F100891D57 /* MapKit.framework */; };
+		1FB0C5411EE540A90077C105 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F2190E21EC50F4B00B8A8AC /* Alamofire.framework */; };
+		81CC29DA0857C16C9743BC90 /* Pods_GoHike.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE7651F90BAB8A0AEB05B6F8 /* Pods_GoHike.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F2190E21EC50F4B00B8A8AC /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/GoHike-fwvfklrvtmbwrmhaapskyzvwyrhp/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
-		1F2190E31EC50F4B00B8A8AC /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = "../../Library/Developer/Xcode/DerivedData/GoHike-fwvfklrvtmbwrmhaapskyzvwyrhp/Build/Products/Debug-iphonesimulator/CorePlot/CorePlot.framework"; sourceTree = "<group>"; };
-		1F2190E41EC50F4B00B8A8AC /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = "../../Library/Developer/Xcode/DerivedData/GoHike-fwvfklrvtmbwrmhaapskyzvwyrhp/Build/Products/Debug-iphonesimulator/SwiftDate/SwiftDate.framework"; sourceTree = "<group>"; };
 		1F83485F1EC3C9D100891D57 /* GoHike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoHike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F8348621EC3C9D100891D57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F8348641EC3C9D100891D57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,9 +28,9 @@
 		1F83486E1EC3C9D100891D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F8348751EC3C9F100891D57 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F8348771EC3C9FB00891D57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5C00A2C2AAF0E28C35117027 /* Pods-GoHike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoHike.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoHike/Pods-GoHike.release.xcconfig"; sourceTree = "<group>"; };
-		CF2FB6F8C41E5916001C221D /* Pods_GoHike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoHike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5AE0D73037E7C730E5E693A /* Pods-GoHike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoHike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoHike/Pods-GoHike.debug.xcconfig"; sourceTree = "<group>"; };
+		AE7651F90BAB8A0AEB05B6F8 /* Pods_GoHike.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoHike.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF1205B6BDE4374528C1156E /* Pods-GoHike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoHike.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoHike/Pods-GoHike.release.xcconfig"; sourceTree = "<group>"; };
+		C3C6767FB3643D16E0597F02 /* Pods-GoHike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoHike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoHike/Pods-GoHike.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,7 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB0C5411EE540A90077C105 /* Alamofire.framework in Frameworks */,
 				1F8348761EC3C9F100891D57 /* MapKit.framework in Frameworks */,
+				81CC29DA0857C16C9743BC90 /* Pods_GoHike.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +53,7 @@
 				1F8348611EC3C9D100891D57 /* GoHike */,
 				1F8348601EC3C9D100891D57 /* Products */,
 				1F8348741EC3C9F100891D57 /* Frameworks */,
-				4F7C71C276CAA2A89E957217 /* Pods */,
+				A0889D56B82126FFAE03576D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,20 +82,18 @@
 			isa = PBXGroup;
 			children = (
 				1F2190E21EC50F4B00B8A8AC /* Alamofire.framework */,
-				1F2190E31EC50F4B00B8A8AC /* CorePlot.framework */,
-				1F2190E41EC50F4B00B8A8AC /* SwiftDate.framework */,
 				1F8348771EC3C9FB00891D57 /* CoreLocation.framework */,
 				1F8348751EC3C9F100891D57 /* MapKit.framework */,
-				CF2FB6F8C41E5916001C221D /* Pods_GoHike.framework */,
+				AE7651F90BAB8A0AEB05B6F8 /* Pods_GoHike.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4F7C71C276CAA2A89E957217 /* Pods */ = {
+		A0889D56B82126FFAE03576D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F5AE0D73037E7C730E5E693A /* Pods-GoHike.debug.xcconfig */,
-				5C00A2C2AAF0E28C35117027 /* Pods-GoHike.release.xcconfig */,
+				C3C6767FB3643D16E0597F02 /* Pods-GoHike.debug.xcconfig */,
+				AF1205B6BDE4374528C1156E /* Pods-GoHike.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -105,12 +105,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F8348711EC3C9D100891D57 /* Build configuration list for PBXNativeTarget "GoHike" */;
 			buildPhases = (
-				DACD94F4663F6D2BB1B7AF64 /* [CP] Check Pods Manifest.lock */,
+				163C29419464C0760D78F575 /* [CP] Check Pods Manifest.lock */,
 				1F83485B1EC3C9D100891D57 /* Sources */,
 				1F83485C1EC3C9D100891D57 /* Frameworks */,
 				1F83485D1EC3C9D100891D57 /* Resources */,
-				7DFF6455028BF076F4B5285D /* [CP] Embed Pods Frameworks */,
-				56C59072612C5F453F2508B8 /* [CP] Copy Pods Resources */,
+				A3285404B8D162BFFE17F287 /* [CP] Embed Pods Frameworks */,
+				B3B1C781903ABB6E8C74A10C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,22 +175,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		56C59072612C5F453F2508B8 /* [CP] Copy Pods Resources */ = {
+		163C29419464C0760D78F575 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoHike/Pods-GoHike-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7DFF6455028BF076F4B5285D /* [CP] Embed Pods Frameworks */ = {
+		A3285404B8D162BFFE17F287 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -205,19 +205,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoHike/Pods-GoHike-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DACD94F4663F6D2BB1B7AF64 /* [CP] Check Pods Manifest.lock */ = {
+		B3B1C781903ABB6E8C74A10C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoHike/Pods-GoHike-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -351,7 +351,7 @@
 		};
 		1F8348721EC3C9D100891D57 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5AE0D73037E7C730E5E693A /* Pods-GoHike.debug.xcconfig */;
+			baseConfigurationReference = C3C6767FB3643D16E0597F02 /* Pods-GoHike.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -367,7 +367,7 @@
 		};
 		1F8348731EC3C9D100891D57 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C00A2C2AAF0E28C35117027 /* Pods-GoHike.release.xcconfig */;
+			baseConfigurationReference = AF1205B6BDE4374528C1156E /* Pods-GoHike.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
