@@ -199,9 +199,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             print(jsonResult)
                             let cityName = (jsonResult as AnyObject)["name"]!!
                             print(cityName)
-                            let weatherCondition = ((((jsonResult as AnyObject)["weather"]!!) as AnyObject)[0] as AnyObject)["description"]
+                            let weatherCondition = ((((jsonResult as AnyObject)["weather"]!!) as AnyObject)[0] as AnyObject)["main"]
                             print(weatherCondition!!)
-                            
+                            // currentTemp: ºF = 1.8 x (K - 273) + 32.
+                            let currentTemp = 1.8 * (((((jsonResult as AnyObject)["main"]!!) as AnyObject)["temp"] as! Double) - 273.0) + 32.0
+                            print(currentTemp)
                         } catch {
                             
                             print("JSON Processing Failed")
