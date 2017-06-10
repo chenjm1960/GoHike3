@@ -167,15 +167,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         
         // constants for openweathermap.org to get weather conditions /////////////////
         //
-        print("location = \(location)")
+        //print("location = \(location)")
         let latit = location.coordinate.latitude
-        let long = location.coordinate.longitude
+        let longit = location.coordinate.longitude
         
         // setup for OpenWeatherMap.org using weather API
-        //
+        // Get location for first 10 updates.
+        
         if updateCount < 10 {
             
-            let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(long)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
+            let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(longit)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
             
             // creating a task from url to get content of url
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -196,6 +197,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             
                             // if processing successful, print the swift array with the contents
                             print(jsonResult)
+                            let cityName = (jsonResult as AnyObject)["name"]!!
+                            print(cityName)
+                            let weatherCondition = ((((jsonResult as AnyObject)["weather"]!!) as AnyObject)[0] as AnyObject)["description"]
+                            print(weatherCondition!!)
                             
                         } catch {
                             
