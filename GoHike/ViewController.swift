@@ -123,6 +123,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib
         
         manager.delegate = self
@@ -149,10 +150,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations[0]
-        
-        
         // 1. dist method using (speed * time)
+        
+        let location = locations[0]
         
         if location.speed >= 0.0 {
             print("speed (miles/hr)= \(location.speed*(2.236))")
@@ -164,6 +164,53 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             progressView.setProgress(Float(runSpeed/10), animated: true)
             
         }
+        
+        // constants for openweathermap.org to get weather conditions /////////////////
+        //
+        print("location = \(location)")
+        let latit = location.coordinate.latitude
+        let long = location.coordinate.longitude
+        
+        // setup for OpenWeatherMap.org using weather API
+        //
+        if updateCount < 10 {
+            
+            let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(long)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
+            
+            // creating a task from url to get content of url
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                
+                if error != nil {
+                    
+                    print(error!)
+                    
+                } else {
+                    
+                    // check if we can get data
+                    if let urlContent = data {
+                        
+                        do {
+                            
+                            // if data exist, process with JSON
+                            let jsonResult = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableContainers)
+                            
+                            // if processing successful, print the swift array with the contents
+                            print(jsonResult)
+                            
+                        } catch {
+                            
+                            print("JSON Processing Failed")
+                            
+                        }
+                        
+                    }
+                }
+            }
+            
+            task.resume()
+        }
+        
+        /////////////////////////////////////////////////////////////
         
         
         // set map to center and focus on your location
