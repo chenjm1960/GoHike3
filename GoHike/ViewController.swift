@@ -29,6 +29,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     // using CorePlot for speedBar Display:
     
+    @IBOutlet weak var citiName: UILabel!
+    
+    @IBOutlet weak var tempurature: UILabel!
+    
+    @IBOutlet weak var weatherType: UILabel!
+    
+    
+    
+    
     @IBOutlet weak var progressView: UIProgressView! // alternative view for speedbar
     @IBOutlet weak var progressViewDist: UIProgressView!
     @IBOutlet weak var mapView: MKMapView!
@@ -197,13 +206,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             
                             // if processing successful, print the swift array with the contents
                             print(jsonResult)
-                            let cityName = (jsonResult as AnyObject)["name"]!!
-                            print(cityName)
-                            let weatherCondition = ((((jsonResult as AnyObject)["weather"]!!) as AnyObject)[0] as AnyObject)["main"]
-                            print(weatherCondition!!)
+                            
+                            if let cityName = (jsonResult as AnyObject)["name"] {
+                                self.citiName.text = cityName as? String
+                                print(cityName!)
+                            }
+                            
+                            
+                            if let weatherDict = (jsonResult as AnyObject)["weather"] {
+                                // use [AnyObject] Array since it will use subscript [index] = [0]
+                                // using just AnyObject will not work, have to define as an array object
+                                let weatherCondition = (weatherDict as! [AnyObject])[0]["main"]!!
+                                print(weatherCondition)
+                                self.weatherType.text = weatherCondition as? String
+                            }
+                            
+                            
                             // currentTemp: ºF = 1.8 x (K - 273) + 32.
-                            let currentTemp = 1.8 * (((((jsonResult as AnyObject)["main"]!!) as AnyObject)["temp"] as! Double) - 273.0) + 32.0
+                            
+                            let currentTemp = (1.8 * ((((((jsonResult as AnyObject)["main"]!!) as AnyObject)["temp"]!!) as! Double) - 273.0) + 32.0)
+                            self.tempurature.text = String(currentTemp)
                             print(currentTemp)
+                            
+                            
                         } catch {
                             
                             print("JSON Processing Failed")
@@ -215,6 +240,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             }
             
             task.resume()
+            
         }
         
         /////////////////////////////////////////////////////////////
