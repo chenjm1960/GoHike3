@@ -164,7 +164,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let location = locations[0]
         
         if location.speed >= 0.0 {
-            print("speed (miles/hr)= \(location.speed*(2.236))")
+            //print("speed (miles/hr)= \(location.speed*(2.236))")
             
             runSpeed = location.speed*(2.236) // converted to miles/hour
             
@@ -183,7 +183,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // setup for OpenWeatherMap.org using weather API
         // Get location for first 10 updates.
         
-        if updateCount < 10 {
+        if updateCount < 5 {
             
             let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(longit)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
             
@@ -205,11 +205,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             let jsonResult = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableContainers)
                             
                             // if processing successful, print the swift array with the contents
-                            print(jsonResult)
+                            //print(jsonResult)
                             
                             if let cityName = (jsonResult as AnyObject)["name"] {
                                 self.citiName.text = cityName as? String
-                                print(cityName!)
+                                //print(cityName!)
                             }
                             
                             
@@ -217,24 +217,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                                 // use [AnyObject] Array since it will use subscript [index] = [0]
                                 // using just AnyObject will not work, have to define as an array object
                                 let weatherCondition = (weatherDict as! [AnyObject])[0]["main"]!!
-                                print(weatherCondition)
+                                //print(weatherCondition)
                                 self.weatherType.text = weatherCondition as? String
                             }
                             
                             
                             // currentTemp: ºF = 1.8 x (K - 273) + 32.
                             
-                            let currentTemp = (1.8 * ((((((jsonResult as AnyObject)["main"]!!) as AnyObject)["temp"]!!) as! Double) - 273.0) + 32.0)
-                            self.tempurature.text = String(currentTemp)
-                            print(currentTemp)
-                            
+                            if let preTemp = (((jsonResult as AnyObject)["main"]) as! [String:AnyObject])["temp"] {
+                                let currentTemp = (1.8 * ((preTemp as! Double) - 273.0)) + 32.0
+                                self.tempurature.text = String(describing: currentTemp)
+                                //print(currentTemp)
+                            }
                             
                         } catch {
                             
                             print("JSON Processing Failed")
                             
                         }
-                        
                     }
                 }
             }
