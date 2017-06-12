@@ -27,17 +27,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var updateCount = 0
     var runSpeed: Double = 0.000
     
-    // using CorePlot for speedBar Display:
-    
+    // Label for OpenWeatherMap data:
     @IBOutlet weak var citiName: UILabel!
-    
     @IBOutlet weak var tempurature: UILabel!
-    
     @IBOutlet weak var weatherType: UILabel!
     
-    
-    
-    
+    // using Progress View for speedBar Display:
     @IBOutlet weak var progressView: UIProgressView! // alternative view for speedbar
     @IBOutlet weak var progressViewDist: UIProgressView!
     @IBOutlet weak var mapView: MKMapView!
@@ -175,30 +170,82 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         }
         
         // constants for openweathermap.org to get weather conditions /////////////////
-        //
-        //print("location = \(location)")
+        // call the getWeather function:
+        
         let latit = location.coordinate.latitude
         let longit = location.coordinate.longitude
+        
+        DispatchQueue.main.async {
+            self.getWeather(latit: latit, longit: longit)
+        }
+        
+        
+        
+        /////////////////////////////////////////////////////////////
+        
+        
+        // set map to center and focus on your location
+        // use if loop to update map just 5 times
+        
+        if updateCount < 5 {
+            let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
+            mapView.setRegion(region, animated: false)
+            updateCount += 1
+        } else {
+            manager.startUpdatingLocation()
+        }
+        
+        // 2. dist method using distance between two locations
+        if startLocation == nil {
+            startLocation = locations.first!
+            
+        } else {
+            let lastLocation = locations.last!
+            let distance = startLocation.distance(from: lastLocation)
+            var progressBarPercent = 0.0
+            if distance > 0.0 {
+                
+                totalDistanceMeters2 += distance
+                //self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
+                progressBarPercent = ((totalDistanceMeters2 * 0.0006214)/10)
+                progressViewDist.setProgress(Float(progressBarPercent), animated: true)
+                
+            }
+            
+            startLocation = lastLocation
+        }
+        
+    }
+    
+    func getWeather(latit:Double,longit:Double) {
+        // constants for openweathermap.org to get weather conditions /////////////////
+        //
+        //print("location = \(location)")
+        
         
         // setup for OpenWeatherMap.org using weather API
         // Get location for first 10 updates.
         
-        if updateCount < 5 {
+        let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(longit)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
+        
+        // creating a task from url to get content of url
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             
-            let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(longit)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
-            
-            // creating a task from url to get content of url
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if error != nil {
                 
-                if error != nil {
-                    
+                // all UI updates should run on main-thread
+                DispatchQueue.main.async {
                     print(error!)
+                }
+                
+                
+            } else {
+                
+                // check if we can get data
+                if let urlContent = data {
                     
-                } else {
-                    
-                    // check if we can get data
-                    if let urlContent = data {
-                        
+                    // all UI updates should run on main-thread
+                    DispatchQueue.main.async {
                         do {
                             
                             // if data exist, process with JSON
@@ -236,46 +283,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             
                         }
                     }
+                    
                 }
             }
-            
-            task.resume()
-            
         }
         
-        /////////////////////////////////////////////////////////////
-        
-        
-        // set map to center and focus on your location
-        // use if loop to update map just 5 times
-        
-        if updateCount < 5 {
-            let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
-            mapView.setRegion(region, animated: false)
-            updateCount += 1
-        } else {
-            manager.startUpdatingLocation()
-        }
-        
-        // 2. dist method using distance between two locations
-        if startLocation == nil {
-            startLocation = locations.first!
-            
-        } else {
-            let lastLocation = locations.last!
-            let distance = startLocation.distance(from: lastLocation)
-            var progressBarPercent = 0.0
-            if distance > 0.0 {
-                
-                totalDistanceMeters2 += distance
-                //self.totalDistMiles2.text = String(format: "%.4f",(totalDistanceMeters2 * 0.0006214))
-                progressBarPercent = ((totalDistanceMeters2 * 0.0006214)/10)
-                progressViewDist.setProgress(Float(progressBarPercent), animated: true)
-                
-            }
-            
-            startLocation = lastLocation
-        }
+        task.resume()
         
     }
     
