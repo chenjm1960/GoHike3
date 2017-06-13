@@ -255,7 +255,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             //print(jsonResult)
                             
                             if let cityName = (jsonResult as AnyObject)["name"] {
-                                self.citiName.text = cityName as? String
+                                self.citiName.text = " " + (cityName as? String)!
                                 //print(cityName!)
                             }
                             
@@ -265,7 +265,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                                 // using just AnyObject will not work, have to define as an array object
                                 let weatherCondition = (weatherDict as! [AnyObject])[0]["main"]!!
                                 //print(weatherCondition)
-                                self.weatherType.text = weatherCondition as? String
+                                self.weatherType.text = " " + (weatherCondition as? String)!
                             }
                             
                             
@@ -273,7 +273,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                             
                             if let preTemp = (((jsonResult as AnyObject)["main"]) as! [String:AnyObject])["temp"] {
                                 let currentTemp = (1.8 * ((preTemp as! Double) - 273.0)) + 32.0
-                                self.tempurature.text = String(describing: currentTemp)
+                                self.tempurature.text = " " + String(format: "%.2f", currentTemp) + " ℉"
                                 //print(currentTemp)
                             }
                             
