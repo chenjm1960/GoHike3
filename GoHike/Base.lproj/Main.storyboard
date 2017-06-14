@@ -154,14 +154,14 @@
                                     <constraint firstAttribute="height" constant="14" id="cKG-il-nXK"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gn0-aS-k4b">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gn0-aS-k4b">
                                 <rect key="frame" x="16" y="540" width="343" height="28"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixG-LK-sqy">
-                                        <rect key="frame" x="0.0" y="0.0" width="86" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="42.5" height="28"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="753" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljp-cU-LQC">
-                                        <rect key="frame" x="86" y="0.0" width="85.5" height="28"/>
+                                        <rect key="frame" x="42.5" y="0.0" width="63" height="28"/>
                                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Center">
@@ -172,7 +172,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkq-MD-qYB">
-                                        <rect key="frame" x="171.5" y="0.0" width="86" height="28"/>
+                                        <rect key="frame" x="105.5" y="0.0" width="102.5" height="28"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.48513527684563756" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Satellite3D">
@@ -183,7 +183,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIO-Pv-13l">
-                                        <rect key="frame" x="257.5" y="0.0" width="85.5" height="28"/>
+                                        <rect key="frame" x="208" y="0.0" width="76.5" height="28"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.47774223993288589" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                         <state key="normal" title="Satellite">
@@ -191,6 +191,17 @@
                                         </state>
                                         <connections>
                                             <action selector="changeMapType:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AsW-GK-Vyk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmm-g8-Mi8">
+                                        <rect key="frame" x="284.5" y="0.0" width="58.5" height="28"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Reset">
+                                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="0.51216442953020136" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="Reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dn9-k0-sCS"/>
                                         </connections>
                                     </button>
                                 </subviews>

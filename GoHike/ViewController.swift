@@ -34,6 +34,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     // using Progress View for speedBar Display:
     @IBOutlet weak var progressView: UIProgressView! // alternative view for speedbar
+    
+    @IBAction func Reset(_ sender: Any) {
+        
+        refreshView()
+        
+    }
     @IBOutlet weak var progressViewDist: UIProgressView!
     @IBOutlet weak var mapView: MKMapView!
     
@@ -160,34 +166,32 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         //print("location = \(location)")
         
         if location.speed >= 0.0 {
-            //print("speed (miles/hr)= \(location.speed*(2.236))")
             
             runSpeed = location.speed*(2.236) // converted to miles/hour
             
+            //print("runSpeed = \(runSpeed)")
             // Using iOS Progress View Bar to plot speed instead of CorePlot
             // max speed scale = 12 miles/hr
             progressView.setProgress(Float(runSpeed/10), animated: true)
             
         }
-        
-        // constants for openweathermap.org to get weather conditions /////////////////
-        // call the getWeather function:
-        
-        let latit = location.coordinate.latitude
-        let longit = location.coordinate.longitude
-        
-        
-        DispatchQueue.main.async {
-            self.getWeather(latit: latit, longit: longit)
-        }
-        
-        /////////////////////////////////////////////////////////////
-        
-        
         // set map to center and focus on your location
         // use if loop to update map just 5 times
         
-        if updateCount < 5 {
+        if updateCount < 10 {
+            
+            // constants for openweathermap.org to get weather conditions /////////////////
+            // call the getWeather function:
+            
+            let latit = location.coordinate.latitude
+            let longit = location.coordinate.longitude
+            
+            DispatchQueue.main.async {
+                self.getWeather(latit: latit, longit: longit)
+            }
+            
+            /////////////////////////////////////////////////////////////
+            //print("manager.location?.coordinate = \(String(describing: manager.location?.coordinate))")
             let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
             mapView.setRegion(region, animated: false)
             updateCount += 1
@@ -283,6 +287,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         }
         
         task.resume()
+        
+    }
+    
+    func refreshView() ->() {
+        
+        // Calling the viewDidLoad and viewWillAppear methods to "refresh" the VC and run through the code within the methods themselves
+        totalDistanceMeters2 = 0.0
         
     }
     

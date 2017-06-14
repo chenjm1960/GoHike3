@@ -58,6 +58,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>GoHike would like to know your current location</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
