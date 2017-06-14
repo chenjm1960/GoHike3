@@ -157,6 +157,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // 1. dist method using (speed * time)
         
         let location = locations[0]
+        //print("location = \(location)")
         
         if location.speed >= 0.0 {
             //print("speed (miles/hr)= \(location.speed*(2.236))")
@@ -175,11 +176,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         let latit = location.coordinate.latitude
         let longit = location.coordinate.longitude
         
+        
         DispatchQueue.main.async {
             self.getWeather(latit: latit, longit: longit)
         }
-        
-        
         
         /////////////////////////////////////////////////////////////
         
@@ -218,14 +218,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     func getWeather(latit:Double,longit:Double) {
-        // constants for openweathermap.org to get weather conditions /////////////////
-        //
-        //print("location = \(location)")
         
-        
-        // setup for OpenWeatherMap.org using weather API
-        // Get location for first 10 updates.
-        
+        // setup url from the latit and longit coordinates
         let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?lat=\(latit)&lon=\(longit)&appid=8c93be12eb4dc96a11f5fffdd66eef37")!
         
         // creating a task from url to get content of url
