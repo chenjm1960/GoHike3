@@ -5,6 +5,12 @@
 //  Created by James Chen on 5/8/17.
 //  Copyright © 2017 jmchen. All rights reserved.
 //
+// Comments to Fix
+/*
+ 1. The 3Dview button doesn't do anything if the app is in Hybrid or Standard mode.  Perhaps a better approach would be to use a UISegmentedControl.  Probably you should have four options:  Standard, 3D, Satellite, and Hybrid.  One advantage of using a UISegmentedControl is that it would make it obvious which option is currently selected, which your current approach doesn't really do.
+ 
+ 2. Your app should be able to handle a situation where a user does not allow the app to use its location.  Right now, the app just keeps trying as if everything is fine.  If the user does not allow the app to access the device's location, you should make it clear that the user must go to settings to allow this.  This is low priority until you have more of your features done, but this is going to be important for your finished app.
+ */
 
 import UIKit
 import CoreLocation
@@ -45,23 +51,26 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBAction func changeMapType(_ sender: UIButton) {
         
-        //mapViewType = "Standard"
+        if let coord = manager.location?.coordinate {
+            let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
+            mapView.setRegion(region, animated: true)
+        }
         
         let title = sender.titleLabel?.text
         
         switch title!{
         case "Satellite":
             mapView.mapType = .satellite
-            sender.setTitle("Hybrid", for: [])
+            sender.setTitle("Hybrid", for: .normal)
         case "Hybrid":
             mapView.mapType = .hybrid
-            sender.setTitle("Standard", for: [])
+            sender.setTitle("Standard", for: .normal)
         case "Standard":
             mapView.mapType = .standard
-            sender.setTitle("Satellite", for: [])
+            sender.setTitle("Satellite", for: .normal)
         default:
             mapView.mapType = .standard
-            sender.setTitle("Sat Fly", for: [])
+            sender.setTitle("Sat Fly", for: .normal)
         }
     }
     // setting for the 3D button
@@ -76,7 +85,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.showsBuildings = true
             mapView.setCamera(camera, animated: true)
             mapViewType = "SatelliteFlyover"
-            sender.setTitle("Hybrid3D", for: [])
+            sender.setTitle("Hybrid3D", for: .normal)
             break
         case "Hybrid3D":
             let camera = MKMapCamera(lookingAtCenter: mapView.centerCoordinate, fromDistance: distance, pitch: pitch, heading: heading)
@@ -84,7 +93,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.showsBuildings = true
             mapViewType = "HybridFlyover"
             mapView.setCamera(camera, animated: true)
-            sender.setTitle("Standard3D", for: [])
+            sender.setTitle("Standard3D", for: .normal)
             break
         case "Standard3D":
             let camera = MKMapCamera(lookingAtCenter: mapView.centerCoordinate, fromDistance: distance, pitch: pitch, heading: heading)
@@ -92,11 +101,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.showsBuildings = true
             mapView.setCamera(camera, animated: true)
             mapViewType = "Flyover"
-            sender.setTitle("Satellite3D", for: [])
+            sender.setTitle("Satellite3D", for: .normal)
             break
         default:
             mapView.mapType = .standard
-            sender.setTitle("Sat Fly", for: [])
+            sender.setTitle("Sat Fly", for: .normal)
             break
         }
         
