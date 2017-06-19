@@ -12,18 +12,23 @@
  2. Your app should be able to handle a situation where a user does not allow the app to use its location.  Right now, the app just keeps trying as if everything is fine.  If the user does not allow the app to access the device's location, you should make it clear that the user must go to settings to allow this.  This is low priority until you have more of your features done, but this is going to be important for your finished app.
  */
 
+
+
 import UIKit
 import CoreLocation
 import MapKit
 
 
-class ViewController: UIViewController,CLLocationManagerDelegate {
+class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     
     // constants below are the camera settings
     let distance: CLLocationDistance = 500
     let pitch: CGFloat = 60
     let heading = 90.0
     
+    
+    var sourceLocation: CLLocationCoordinate2D!
+    var destinationLocation: CLLocationCoordinate2D!
     var mapViewType = "Standard"
     var manager = CLLocationManager()
     var totalDistanceMeters2:Double = 0.0
@@ -44,13 +49,30 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     @IBAction func Reset(_ sender: Any) {
         
         refreshView()
+        // Mark the Starting Location for App:
+        if let sourceCoord = manager.location?.coordinate {
+            let lat = sourceCoord.latitude
+            let long = sourceCoord.longitude
+            sourceLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        }
         
     }
+    
+    
+    @IBAction func endDrawPath(_ sender: Any) {
+        
+        drawMapPath()
+        
+    }
+    
+    
     @IBOutlet weak var progressViewDist: UIProgressView!
     @IBOutlet weak var mapView: MKMapView!
     
+    // setting for the 2D button
     @IBAction func changeMapType(_ sender: UIButton) {
         
+        mapViewType = "Standard"
         if let coord = manager.location?.coordinate {
             let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
             mapView.setRegion(region, animated: true)
@@ -71,13 +93,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         default:
             mapView.mapType = .standard
             sender.setTitle("Sat Fly", for: .normal)
+            
         }
     }
     // setting for the 3D button
     @IBAction func flyoverMap(_ sender: UIButton) {
         
         let title = sender.titleLabel?.text
-        //mapView.mapType = .standard
+        
         switch title!{
         case "Satellite3D":
             let camera = MKMapCamera(lookingAtCenter: mapView.centerCoordinate, fromDistance: distance, pitch: pitch, heading: heading)
@@ -100,7 +123,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             mapView.mapType = .standard
             mapView.showsBuildings = true
             mapView.setCamera(camera, animated: true)
-            mapViewType = "Flyover"
+            mapViewType = "StandardFlyover"
             sender.setTitle("Satellite3D", for: .normal)
             break
         default:
@@ -119,10 +142,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
                 case "Standard":
                     let region = MKCoordinateRegionMakeWithDistance(coord, 1000, 1000)
                     mapView.setRegion(region, animated: true)
-                case "Flyover":
+                case "StandardFlyover":
                     let camera = MKMapCamera(lookingAtCenter: coord, fromDistance: distance, pitch: pitch, heading: heading)
                     mapView.showsBuildings = true
                     mapView.setCamera(camera, animated: true)
+                    mapView.mapType = .standard
                 case "SatelliteFlyover":
                     let camera = MKMapCamera(lookingAtCenter: coord, fromDistance: distance, pitch: pitch, heading: heading)
                     mapView.showsBuildings = true
@@ -143,31 +167,133 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view, typically from a nib
+        // Setup CLLocationManager:
         
         manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        //manager.requestAlwaysAuthorization()
-        manager.startUpdatingLocation()
+        mapView.delegate = self
         
-        mapView.showsUserLocation = true
-        mapView.showsCompass = true
-        mapView.showsScale = true
-        mapView.showsBuildings = true
-        mapView.showsPointsOfInterest = true
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            
+            manager.desiredAccuracy = kCLLocationAccuracyBest
+            manager.requestWhenInUseAuthorization()
+            //manager.requestAlwaysAuthorization()
+            manager.startUpdatingLocation()
+            
+            
+            // Below code will add a marker at user location every 10 sec.
+            Timer.scheduledTimer(withTimeInterval: 10, repeats: true, block: { (timer) in
+                
+                //self.drawMapPath()
+                
+            })
+            
+            mapView.showsUserLocation = true
+            mapView.showsCompass = true
+            mapView.showsScale = true
+            mapView.showsBuildings = true
+            mapView.showsPointsOfInterest = true
+            
+            // Makes the progressView Bar thicker
+            self.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
+            self.progressViewDist.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
+            
+        } else {
+            
+            manager.requestWhenInUseAuthorization()
+            
+        }
         
-        // Makes the progressView Bar thicker
-        self.progressView.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
-        self.progressViewDist.transform = CGAffineTransform(scaleX: 1.0, y: 6.0)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func drawMapPath () {
+        
+        
+        
+        // 1. This function will draw the walking path of app.
+        
+        if let destinationCoord = manager.location?.coordinate {
+            let lat = destinationCoord.latitude
+            let long = destinationCoord.longitude
+            destinationLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        }
+        
+        // 2.
+        //sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
+        //destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
+        
+        // 3.
+        let sourcePlacemark = MKPlacemark(coordinate:sourceLocation,addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate:destinationLocation, addressDictionary: nil)
+        
+        // 4.
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        
+        // 5.
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = ""
+        
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate = location.coordinate
+        }
+        
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = ""
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        
+        // 6.
+        self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: false )
+        
+        // 7.
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        // 8.
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            let route = response.routes[0]
+            self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
+            
+            let region = MKCoordinateRegionMakeWithDistance(self.sourceLocation, 5000, 5000)
+            self.mapView.setRegion(region, animated: true)
+            
+            //let rect = route.polyline.boundingMapRect
+            //self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+        }
+        
+        sourceLocation = destinationLocation
+        
+    }
+    
+    // mapView extended function used for drawMapPath() above:
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+        
+        return renderer
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         
         // 1. dist method using (speed * time)
         
@@ -204,8 +330,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             let region = MKCoordinateRegionMakeWithDistance((manager.location?.coordinate)!, 1000, 1000)
             mapView.setRegion(region, animated: false)
             updateCount += 1
-        } else {
-            manager.startUpdatingLocation()
         }
         
         // 2. dist method using distance between two locations
