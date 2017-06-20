@@ -217,9 +217,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             destinationLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
         }
         
-        // 2.
-        //sourceLocation = CLLocationCoordinate2D(latitude: 40.759011, longitude: -73.984472)
-        //destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
         
         // 3.
         let sourcePlacemark = MKPlacemark(coordinate:sourceLocation,addressDictionary: nil)
@@ -252,8 +249,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let directionRequest = MKDirectionsRequest()
         directionRequest.source = sourceMapItem
         directionRequest.destination = destinationMapItem
-        directionRequest.transportType = .automobile
-        
+        //directionRequest.transportType = .automobile
+        //directionRequest.transportType = .any
+        directionRequest.transportType = .walking
         // Calculate the direction
         let directions = MKDirections(request: directionRequest)
         
@@ -272,7 +270,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             let route = response.routes[0]
             self.mapView.add((route.polyline), level: MKOverlayLevel.aboveRoads)
             
-            let region = MKCoordinateRegionMakeWithDistance(self.sourceLocation, 5000, 5000)
+            let region = MKCoordinateRegionMakeWithDistance(self.sourceLocation, 2000, 2000)
             self.mapView.setRegion(region, animated: true)
             
             //let rect = route.polyline.boundingMapRect
